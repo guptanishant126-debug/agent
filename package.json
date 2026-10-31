@@ -1,0 +1,22 @@
+{
+  "name": "sahayak-ai-monorepo",
+  "version": "1.0.0",
+  "description": "Sahayak AI - Multimodal AI Advisor & Scam Shield Agent for Underserved Communities",
+  "private": true,
+  "scripts": {
+    "dev:backend": "cd backend && npm start",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build"
+  },
+  "keywords": [
+    "sahayak",
+    "ai-agent",
+    "multimodal",
+    "gemini-2.5-flash",
+    "fraud-shield",
+    "agri-advisory",
+    "cybercrime-grievance"
+  ],
+  "author": "Antigravity Systems Architect",
+  "license": "MIT"
+}
