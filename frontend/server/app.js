@@ -67,15 +67,22 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// Mount Routes
+// Mount routes with /api prefix
 app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/consult', apiLimiter, consultRoutes);
 app.use('/api/scam-shield', apiLimiter, scamRoutes);
 app.use('/api/grievance', apiLimiter, grievanceRoutes);
 app.use('/api/history', apiLimiter, historyRoutes);
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
+// Also mount routes without /api prefix for flexible base URL configurations
+app.use('/auth', authLimiter, authRoutes);
+app.use('/consult', apiLimiter, consultRoutes);
+app.use('/scam-shield', apiLimiter, scamRoutes);
+app.use('/grievance', apiLimiter, grievanceRoutes);
+app.use('/history', apiLimiter, historyRoutes);
+
+// Health check endpoint (both /api/health and /health)
+app.get(['/api/health', '/health'], (req, res) => {
   res.status(200).json({
     status: 'healthy',
     system: 'Sahayak AI Guardian API',

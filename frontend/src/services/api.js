@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+// Normalize API base URL: clean whitespace, trailing slashes, and guarantee /api suffix
+let rawBase = (import.meta.env.VITE_API_URL || '/api').trim();
+rawBase = rawBase.replace(/\/+$/, '');
+
+const API_BASE = rawBase.endsWith('/api')
+  ? rawBase
+  : (rawBase === '' || rawBase === '/' ? '/api' : `${rawBase}/api`);
 
 const api = axios.create({
   baseURL: API_BASE,
@@ -64,4 +70,3 @@ export const historyAPI = {
 };
 
 export default api;
-
