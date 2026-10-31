@@ -6,9 +6,15 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const uploadDir = path.join(__dirname, '..', 'uploads');
+const isServerless = !!(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+const uploadDir = isServerless ? path.join('/tmp', 'uploads') : path.join(__dirname, '..', 'uploads');
+
 if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+  try {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  } catch (err) {
+    console.warn('Upload directory creation deferred:', err.message);
+  }
 }
 
 // Memory storage so file buffer is available synchronously for Gemini API payload
@@ -39,7 +45,7 @@ const fileFilter = (req, file, cb) => {
 export const upload = multer({
   storage,
   limits: {
-    fileSize: 25 * 1024 * 1024 // 25MB max limit (images capped via check or 25MB overall)
+    fileSize: 25 * 1024 * 1024 // 25MB max limit
   },
   fileFilter
 });
@@ -56,4 +62,3 @@ export const saveBufferToDisk = (buffer, originalname, mimeType) => {
     return null;
   }
 };
-

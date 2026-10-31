@@ -1,0 +1,78 @@
+{
+  "users": [
+    {
+      "id": "f1b75891-5585-4f3a-a734-127acd04ecc0",
+      "name": "Ramesh Patel",
+      "email": "ramesh_1793438879726@example.com",
+      "password_hash": "$2b$10$SNXiweqJAIla8.zbqwpBVuaHT.vgkYzyrZd17JiPy03iBj31xp76K",
+      "phone": "+91-9876543210",
+      "preferred_language": "hi",
+      "created_at": "2026-10-31T09:27:59.893Z",
+      "updated_at": "2026-10-31T09:27:59.893Z"
+    }
+  ],
+  "consultations": [
+    {
+      "id": "b6a166a5-3eb1-45ab-a560-dfa9238022f3",
+      "user_id": "f1b75891-5585-4f3a-a734-127acd04ecc0",
+      "domain": "Agricultural Advisory",
+      "input_type": "text",
+      "raw_input": "My mustard crop has aphid infestation and leaf curl. Please suggest low cost treatment under ₹300.",
+      "media_url": null,
+      "ai_response": {
+        "domain": "Agricultural Advisory",
+        "summary": "Integrated Pest & Soil Management Strategy: Sustainable, low-cost bio-control plan for crop health.",
+        "estimated_cost": "₹150 - ₹350 per acre",
+        "risk_assessment": "Moderate",
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "Immediate Physical Isolation & Neem Spray",
+            "rationale": "Apply 5ml Neem Oil (10,000 PPM) + 1ml liquid soap per liter of water at evening time. This deters sucking pests and aphid colonies without killing beneficial predator insects."
+          },
+          {
+            "step_number": 2,
+            "action": "Deploy Yellow & Blue Sticky Traps",
+            "rationale": "Install 6-8 yellow sticky cards per bigha/acre to monitor and trap whiteflies and thrips before they transmit leaf curl viral diseases. Cost is under ₹100."
+          },
+          {
+            "step_number": 3,
+            "action": "Soil Trichoderma Viride Inoculation with Farmyard Manure",
+            "rationale": "Mix 1kg Trichoderma with 50kg well-decomposed cow dung manure to suppress root rot and fungal wilt pathogens biologically."
+          }
+        ]
+      },
+      "status": "completed",
+      "created_at": "2026-10-31T09:27:59.925Z"
+    }
+  ],
+  "scam_reports": [
+    {
+      "id": "9270dc6c-e333-4e34-8772-020748e39a83",
+      "user_id": "f1b75891-5585-4f3a-a734-127acd04ecc0",
+      "suspect_identifier": "Dear customer your electricity power will be disconnected at 9:30 PM due to unpaid bill. Call officer immediately.",
+      "scam_type": "Fake Electricity Disconnection",
+      "risk_score": 94,
+      "analysis_details": {
+        "is_scam": true,
+        "risk_level": "HIGH",
+        "confidence_score": 94,
+        "threat_type": "Fake Power Disconnection Phishing Scam",
+        "explanation": "This message uses urgent fear tactics and impersonation. Legitimate banks, DISCOMs, or government agencies NEVER ask you to download unknown APK files, click unverified bit.ly links, or share 6-digit OTPs.",
+        "immediate_action": "DO NOT click any link, share OTP, or send even ₹1 for 'verification'. Block the caller/sender immediately. Call 1930 if money was debited.",
+        "recommended_helpline": "National Cyber Crime Helpline: 1930 (Toll Free, 24x7)"
+      },
+      "created_at": "2026-10-31T09:27:59.917Z"
+    }
+  ],
+  "grievances": [
+    {
+      "id": "03284797-77de-43df-9650-2d0938b2bd11",
+      "user_id": "f1b75891-5585-4f3a-a734-127acd04ecc0",
+      "incident_summary": "Fraudster called impersonating bank KYC team. Deceptively asked to share screen on AnyDesk and deducted ₹18,500 from savings account.",
+      "complaint_draft": "TO:\nThe Nodal Officer / Cyber Crime Police Station / Banking Ombudsman\nPortal: National Cyber Crime Reporting Portal\n\nSUBJECT: FORMAL COMPLAINT AGAINST CYBER FRAUD AND FINANCIAL IMPERSONATION (Amount: ₹18500)\n\nRespected Authority,\n\nI am formally reporting an incident of cyber fraud and unauthorized financial deception that occurred on 2026-10-31. \n\n1. INCIDENT DETAILS:\n- Category of Incident: Unauthorized UPI Debit Fraud\n- Date of Occurrence: 2026-10-31\n- Financial Loss Incurred: ₹18500\n- Disputed Transaction / UTR Reference: 423982716281\n- Suspect Contact / Identifier: +91-9988776655, UPI ID: fraudster@paytm\n\n2. BRIEF SUMMARY OF EVENTS:\nFraudster called impersonating bank KYC team. Deceptively asked to share screen on AnyDesk and deducted ₹18,500 from savings account.\n\n3. LEGAL GROUNDS & CITATIONS:\nThe aforesaid fraudulent acts constitute cognizable offenses under:\n- Section 66D of the Information Technology Act, 2000 (Punishment for cheating by personation by using computer resource).\n- Section 66C of the Information Technology Act, 2000 (Punishment for identity theft).\n- Relevant provisions of Bharatiya Nyaya Sanhita (BNS) / Indian Penal Code regarding Cheating and Criminal Breach of Trust.\n- Reserve Bank of India Master Direction on 'Customer Protection – Limiting Liability of Customers in Unauthorised Electronic Banking Transactions' (DBR.No.Leg.BC.78/09.07.005/2017-18).\n\n4. RELIEF SOUGHT:\nI respectfully request the Cyber Crime Investigation Division and Banking Nodal Team to:\na) Immediately issue an electronic freeze request on the recipient bank account / UPI VPA / merchant wallet linked to +91-9988776655, UPI ID: fraudster@paytm to halt further fund dissipation.\nb) Register this formal grievance for full cyber forensic investigation.\nc) Direct the participating payment intermediaries to refund/reverse the disputed amount under zero/limited customer liability guidelines.\n\nI hereby affirm that the statements made herein are true and accurate to the best of my knowledge.\n\nSincerely,\nAggrieved Citizen / Complainant\nSubmitted via Sahayak AI Grievance Assistant",
+      "status": "submitted",
+      "created_at": "2026-10-31T09:27:59.935Z"
+    }
+  ]
+}

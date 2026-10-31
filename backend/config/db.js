@@ -11,10 +11,18 @@ const { Pool } = pg;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Fallback JSON-backed storage file for environments without a running Postgres instance
-const fallbackDir = path.join(__dirname, '..', 'data');
+// Serverless-aware directory: Vercel lambda filesystem is read-only except for /tmp
+const isServerless = !!(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+const fallbackDir = isServerless
+  ? path.join('/tmp', 'sahayak_data')
+  : path.join(__dirname, '..', 'data');
+
 if (!fs.existsSync(fallbackDir)) {
-  fs.mkdirSync(fallbackDir, { recursive: true });
+  try {
+    fs.mkdirSync(fallbackDir, { recursive: true });
+  } catch (err) {
+    console.warn('Directory creation deferred:', err.message);
+  }
 }
 const fallbackDbPath = path.join(fallbackDir, 'fallback_db.json');
 
@@ -44,23 +52,36 @@ const saveFallbackData = (data) => {
 
 let isPostgresConnected = false;
 let realPool = null;
+let dbInitialized = false;
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/sahayak_db';
+const connectionString = process.env.DATABASE_URL || '';
+const isLocalhostDb = connectionString.includes('localhost') || connectionString.includes('127.0.0.1');
 
-try {
-  realPool = new Pool({
-    connectionString,
-    connectionTimeoutMillis: 3000,
-    idleTimeoutMillis: 10000,
-    max: 10,
-    ssl: process.env.NODE_ENV === 'production' && !connectionString.includes('localhost') ? { rejectUnauthorized: false } : false
-  });
-} catch (err) {
-  console.warn('Postgres client initialization deferred:', err.message);
+// Only initialize PostgreSQL client if a remote connection string is provided in serverless,
+// or if running locally with Postgres configured
+if (connectionString && (!isServerless || !isLocalhostDb)) {
+  try {
+    realPool = new Pool({
+      connectionString,
+      connectionTimeoutMillis: 3000,
+      idleTimeoutMillis: 10000,
+      max: 5,
+      ssl: connectionString.includes('localhost') ? false : { rejectUnauthorized: false }
+    });
+  } catch (err) {
+    console.warn('Postgres client initialization deferred:', err.message);
+  }
 }
 
 export const initDb = async () => {
-  if (!realPool) return;
+  if (dbInitialized) return;
+  dbInitialized = true;
+
+  if (!realPool) {
+    console.log('📁 Using persistent resilient storage in ' + fallbackDbPath);
+    return;
+  }
+
   try {
     const client = await realPool.connect();
     isPostgresConnected = true;
@@ -121,7 +142,7 @@ export const initDb = async () => {
   } catch (err) {
     isPostgresConnected = false;
     console.warn('⚠️ PostgreSQL connection failed (' + err.message + ').');
-    console.warn('📁 Activating persistent resilient fallback storage in backend/data/fallback_db.json.');
+    console.warn('📁 Activating persistent resilient fallback storage in ' + fallbackDbPath);
   }
 };
 
@@ -134,11 +155,11 @@ export const query = async (text, params = []) => {
     try {
       return await realPool.query(text, params);
     } catch (err) {
-      console.warn('Postgres query error, attempting fallback if table query:', err.message);
+      console.warn('Postgres query error, attempting fallback:', err.message);
     }
   }
 
-  // Fallback engine handling for the 4 core tables
+  // Fallback engine handling for core tables
   const dbData = loadFallbackData();
   const normalized = text.trim();
 
@@ -179,7 +200,7 @@ export const query = async (text, params = []) => {
     const id = params[params.length - 1];
     const userIndex = dbData.users.findIndex(u => u.id === id);
     if (userIndex !== -1) {
-      if (params.length === 4) { // name, phone, preferred_language, id
+      if (params.length === 4) {
         dbData.users[userIndex].name = params[0] || dbData.users[userIndex].name;
         dbData.users[userIndex].phone = params[1] || dbData.users[userIndex].phone;
         dbData.users[userIndex].preferred_language = params[2] || dbData.users[userIndex].preferred_language;
@@ -288,4 +309,3 @@ export default {
   query,
   initDb
 };
-
