@@ -76,3 +76,4 @@ export const createSpeechRecognizer = (lang = 'en', onResult, onError, onEnd) =>
 
   return recognition;
 };
+

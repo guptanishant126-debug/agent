@@ -360,3 +360,4 @@ export const translations = {
     call1930: "૧૯૩૦ પર કૉલ કરો",
   }
 };
+

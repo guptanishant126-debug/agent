@@ -55,3 +55,4 @@ CREATE TABLE IF NOT EXISTS grievances (
 CREATE INDEX IF NOT EXISTS idx_consultations_user ON consultations(user_id);
 CREATE INDEX IF NOT EXISTS idx_scam_reports_user ON scam_reports(user_id);
 CREATE INDEX IF NOT EXISTS idx_grievances_user ON grievances(user_id);
+

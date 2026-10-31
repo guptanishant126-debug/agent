@@ -10,3 +10,4 @@ router.post('/submit', authenticateToken, validate(grievanceSubmitSchema), appro
 router.get('/', authenticateToken, listGrievances);
 
 export default router;
+

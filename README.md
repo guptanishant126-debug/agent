@@ -223,3 +223,4 @@ Open `http://localhost:5173` to explore the platform:
 - **Data Isolation**: All queries to `consultations`, `scam_reports`, and `grievances` are strictly scoped by `WHERE user_id = req.user.id`.
 - **Validation**: Strict Zod schemas sanitize all incoming inputs.
 - **Rate Limiting**: Protects authentication and AI endpoints from automated abuse.
+

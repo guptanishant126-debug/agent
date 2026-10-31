@@ -7,3 +7,4 @@ const router = Router();
 router.get('/', authenticateToken, getUserHistory);
 
 export default router;
+

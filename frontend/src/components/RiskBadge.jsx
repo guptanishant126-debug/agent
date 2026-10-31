@@ -85,3 +85,4 @@ export default function RiskBadge({ riskLevel = 'LOW', score = 0, size = 'md' })
     </div>
   );
 }
+

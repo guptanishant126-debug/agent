@@ -10,3 +10,4 @@ router.post('/check', authenticateToken, upload.single('media'), validate(scamCh
 router.get('/alerts', getCommunityScamAlerts);
 
 export default router;
+

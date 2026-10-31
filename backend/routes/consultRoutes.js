@@ -8,3 +8,4 @@ const router = Router();
 router.post('/', authenticateToken, upload.single('media'), handleConsultation);
 
 export default router;
+
